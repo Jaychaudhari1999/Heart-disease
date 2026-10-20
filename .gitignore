@@ -8,6 +8,7 @@ __pycache__/
 
 .ipynb_checkpoints
 
-# Ignore CSV/Excel File
+# Ignore CSV/Excel File except bundled heart.csv
 *.csv
+!data/heart.csv
 *.xlsx

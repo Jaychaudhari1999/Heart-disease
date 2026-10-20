@@ -324,6 +324,9 @@ def random_sample(desired_class):
         return jsonify(sample)
     except ValueError as error:
         return jsonify({"message": str(error)}), 404
+    except Exception as error:
+        print(f"Error loading random sample: {error}", flush=True)
+        return jsonify({"message": f"Server error: {str(error)}"}), 500
 
 
 # --- Prediction Route (JWT Protected) ---

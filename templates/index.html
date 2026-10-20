@@ -489,9 +489,14 @@
 
       try {
         const response = await fetch(`/random_sample/${desiredClass}`);
-        const sample = await response.json();
+        let sample;
+        try {
+          sample = await response.json();
+        } catch (jsonErr) {
+          throw new Error(`Server returned status ${response.status}`);
+        }
         if (!response.ok) {
-          throw new Error(sample.message || "Could not load a sample");
+          throw new Error(sample.message || `Server returned error ${response.status}`);
         }
         fillForm(sample);
       } catch (error) {
