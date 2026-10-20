@@ -19,9 +19,9 @@ app.config["JWT_SECRET_KEY"] = config.JWT_SECRET_KEY
 app.config["SECRET_KEY"] = config.SECRET_KEY
 jwt = JWTManager(app)
 
-mongo_client = pymongo.MongoClient(config.MONGO_URL)
-db = mongo_client[config.db_name]
-user_collection = db[config.user_collection_name]
+from src.database import mongo_client, db, get_user_collection, ensure_user_indexes
+
+user_collection = get_user_collection()
 
 
 @app.route("/")
@@ -113,6 +113,7 @@ def find_user_by_identifier(ident):
 @app.route("/register", methods=["POST"])
 def register():
     try:
+        ensure_user_indexes()
         user_data = request.get_json(silent=True) or request.form
         user_name = str(user_data.get("user_name") or "").strip()
         password = str(user_data.get("password") or "").strip()

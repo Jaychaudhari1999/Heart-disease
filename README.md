@@ -15,7 +15,7 @@ CardioPulse is a Flask web application that uses a pre-trained logistic regressi
 ## Requirements
 
 - Python 3.10 or later recommended.
-- MongoDB running locally at `mongodb://localhost:27017` for registration, login, password reset, and prediction-history storage.
+- Azure Cosmos DB for MongoDB (configured by default in `config.py`) or a MongoDB instance for registration, login, password reset, and prediction-history storage.
 - Python packages are listed in `requirements.txt`. It includes the Flask app's runtime dependencies and the packages used by the model-training notebook.
 
 Install the dependencies in a virtual environment:
@@ -112,7 +112,7 @@ For `/predict_heart_disease`, send the 13 input fields as JSON or form data and 
 ## Configuration and data
 
 - `SECRET_KEY` and `JWT_SECRET_KEY` can be supplied through environment variables. The fallback values in `config.py` are development defaults and must be replaced for any deployment.
-- The MongoDB URL and database/collection names are currently configured directly in `config.py`.
+- The MongoDB / Azure Cosmos DB URL and database/collection names are configured in `config.py` and can also be overridden via the `MONGO_URL` environment variable.
 - Model, mapping, and dataset paths are derived from the current working directory. Run `python app.py` from the project root so those paths resolve correctly.
 - Prediction history is written to MongoDB under the configured data collection. The app logs a warning if that write fails, but still returns the prediction.
 

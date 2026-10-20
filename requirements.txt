@@ -1,9 +1,12 @@
 Flask
 Flask-JWT-Extended
 pymongo
+dnspython
+certifi
 numpy
 pandas
 scikit-learn
 matplotlib
 seaborn
 jupyter
+gunicorn
